@@ -1,0 +1,64 @@
+#!/usr/local/bin/zsh
+
+echo $@
+
+file_description=$(file "$1")
+file_extension=$(echo $1 |awk -F . '{if (NF>1) {print $NF}}')
+file_path="$(echo $1)"
+
+ext_script="zsh bash sh"
+ext_text="md txt md zsh bash"
+ext_images="jpg jpeg png bmp"
+ext_ebook="epub pdf PDF cb cbz"
+ext_video="avi mp4 mkv"
+ext_url="com org net gopher"
+
+mime_script="script"
+mime_text="text"
+mime_image="image"
+mime_video="AVI MP4 Matroska"
+mime_pdf="PDF"
+
+
+if [[ $file_description == *"$mime_image"* ]]
+then
+	$IMAGE_VIEWER "$file_path" & exit 0
+elif [[ $file_description == *"$mime_script"* ]]
+then
+	$VISUAL "$file_path" & exit 0
+elif [[ $file_description == *"$mime_video"* ]]
+then
+	$VIDEO_PLAYER "$file_path" & exit 0
+elif [[ $file_description == *"$mime_pdf"* ]]
+then
+	$EBOOK_READER "$file_path" & exit 0
+else
+	case $file_extension in
+		"")	echo "no file extention and no mime type"
+			exit 1	
+			;;
+	esac
+fi
+
+
+
+if [[ $ext_images == *"$file_extension"* ]]
+then
+	$IMAGE_VIEWER "$file_path" & exit 0
+elif [[ $ext_ebook == *"$file_extension"* ]]
+then
+	$EBOOK_READER "$file_path" & exit 0
+elif [[ $ext_text == *"$file_extension"* ]]
+then
+	$EDITOR "$file_path" & exit 0
+elif [[ $ext_video == *"$file_extension"* ]]
+then
+	$VIDEO_PLAYER "$file_path" & exit 0
+fi
+
+if [[ $file_description == *"No such file or directory"* ]]
+then
+	$BROWSER "$file_path" & exit 0
+fi
+
+echo "could not open"
