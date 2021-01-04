@@ -14,9 +14,9 @@ it uses 3 things
 # 1 environment variables
 EDITOR for text files READER for pdfs, epups, etc. BROWSER for web links, MUSIC_PLAYER for music and VIDEO_PLAYER for playing video
 # 2 extension variables
-in hisho-chan file itself named ext_* to identify each file type by extension. ext_video might be "mp4 avi" and so on, any extension that is used on video files
+in hisho-chan file itself, variables named ext_* to identify each file type by extension. ext_video might be "mp4 avi" and so on, any extension that is used on video files
 # 3 descriptions variables
-also in hisho-chan file named desc_* using strings you can get by using the shell command file "file name", the description might contain strings that identify what kind of file you are trying to open similar to extensions
+also in hisho-chan file, varialbes named desc_* using strings you can get by using the shell command file "file name", the description might contain strings that identify what kind of file you are trying to open similar to extensions
 but since it is possible to have files without extension, and wrong file extensions, we check for both and file description takes priority
 
 this way it is easy to extend the pogram by adding more file descriptions and extension to the variables
